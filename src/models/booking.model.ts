@@ -1,5 +1,5 @@
 import mongoose, { Schema, model } from 'mongoose';
-import { Booking } from '../types/Booking.type';
+import { Booking } from '../types/booking.type';
 
 const bookingSchema = new Schema<Booking>(
   {

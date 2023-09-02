@@ -1,5 +1,5 @@
 import { Document } from 'mongoose';
-import { Booking } from './Booking.type';
+import { Booking } from './booking.type';
 import { Payment } from './payment.type';
 
 export type User = {
