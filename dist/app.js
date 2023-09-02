@@ -1,0 +1,58 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const cors_1 = __importDefault(require("cors"));
+const dotenv_1 = __importDefault(require("dotenv"));
+const morgan_1 = __importDefault(require("morgan"));
+const helmet_1 = __importDefault(require("helmet"));
+const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
+const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const hpp_1 = __importDefault(require("hpp"));
+class App {
+    constructor() {
+        this.app = (0, express_1.default)();
+        this.configureMiddlewares();
+        this.setupRoutes();
+        this.connectToDatabase();
+    }
+    configureMiddlewares() {
+        this.app.use(express_1.default.json());
+        this.app.use(express_1.default.urlencoded({ extended: true }));
+        this.app.use((0, cors_1.default)());
+        this.app.use((0, morgan_1.default)('dev'));
+        this.app.use((0, helmet_1.default)());
+        this.app.use((0, express_rate_limit_1.default)({
+            windowMs: 10 * 60 * 1000,
+            max: 100,
+        }));
+        this.app.use((0, express_mongo_sanitize_1.default)());
+        this.app.use((0, hpp_1.default)());
+    }
+    setupRoutes() {
+        this.app.get('/', (req, res) => {
+            res.status(200).json({
+                message: 'Server is up and running, waiting for human to handle! 😎',
+            });
+        });
+    }
+    connectToDatabase() {
+        const URI = process.env.MONGO_URI;
+        mongoose_1.default
+            .connect(URI)
+            .then(() => {
+            const PORT = process.env.PORT || 4000;
+            this.app.listen(PORT, () => {
+                console.log(`✅ Server is up and running on port: ${PORT}`);
+            });
+        })
+            .catch((error) => {
+            console.error('❌ Error connecting to MongoDB:', error);
+        });
+    }
+}
+dotenv_1.default.config();
+new App();
