@@ -1,12 +1,19 @@
-import express, { Application, Request, Response } from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import morgan from 'morgan';
-import helmet from 'helmet';
+import express, { Application, Request, Response } from 'express';
 import mongoSanitize from 'express-mongo-sanitize';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
 import hpp from 'hpp';
+import mongoose from 'mongoose';
+import morgan from 'morgan';
+import bookingRouter from './routes/booking.route';
+import locationRouter from './routes/location.route';
+import paymentRouter from './routes/payment.route';
+import resortsRouter from './routes/resort.route';
+import restaurantRouter from './routes/resturant.route';
+import spotRouter from './routes/spot.route';
+import tourPackageRouter from './routes/tourPackage.route';
 
 class App {
   private app: Application;
@@ -40,6 +47,13 @@ class App {
         message: 'Server is up and running, waiting for human to handle! 😎',
       });
     });
+    this.app.use('/api/locations', locationRouter);
+    this.app.use('/api/locations/:id/resorts', resortsRouter);
+    this.app.use('/api/locations/:id/restaurants', restaurantRouter);
+    this.app.use('/api/locations/:id/spots', spotRouter);
+    this.app.use('/api/locations/:id/tour_packages', tourPackageRouter);
+    this.app.use('/api/bookings', bookingRouter);
+    this.app.use('/api/payments', paymentRouter);
   }
 
   private connectToDatabase(): void {
