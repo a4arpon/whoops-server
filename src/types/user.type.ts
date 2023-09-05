@@ -6,9 +6,9 @@ export type User = {
   name: string;
   email: string;
   password: string;
-  address: string;
   phone: string;
-  photoUrl: string;
+  photoUrl?: string;
+  address?: string;
   bookings: Booking[];
   payments: Payment[];
   role: 'user' | 'admin';
