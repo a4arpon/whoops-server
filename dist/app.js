@@ -3,15 +3,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const cors_1 = __importDefault(require("cors"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const morgan_1 = __importDefault(require("morgan"));
-const helmet_1 = __importDefault(require("helmet"));
+const express_1 = __importDefault(require("express"));
 const express_mongo_sanitize_1 = __importDefault(require("express-mongo-sanitize"));
 const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
+const helmet_1 = __importDefault(require("helmet"));
 const hpp_1 = __importDefault(require("hpp"));
+const mongoose_1 = __importDefault(require("mongoose"));
+const morgan_1 = __importDefault(require("morgan"));
+const booking_route_1 = __importDefault(require("./routes/booking.route"));
+const location_route_1 = __importDefault(require("./routes/location.route"));
+const payment_route_1 = __importDefault(require("./routes/payment.route"));
+const resort_route_1 = __importDefault(require("./routes/resort.route"));
+const resturant_route_1 = __importDefault(require("./routes/resturant.route"));
+const spot_route_1 = __importDefault(require("./routes/spot.route"));
+const tourPackage_route_1 = __importDefault(require("./routes/tourPackage.route"));
 class App {
     constructor() {
         this.app = (0, express_1.default)();
@@ -38,6 +45,13 @@ class App {
                 message: 'Server is up and running, waiting for human to handle! 😎',
             });
         });
+        this.app.use('/api/locations', location_route_1.default);
+        this.app.use('/api/locations/:id/resorts', resort_route_1.default);
+        this.app.use('/api/locations/:id/restaurants', resturant_route_1.default);
+        this.app.use('/api/locations/:id/spots', spot_route_1.default);
+        this.app.use('/api/locations/:id/tour_packages', tourPackage_route_1.default);
+        this.app.use('/api/bookings', booking_route_1.default);
+        this.app.use('/api/payments', payment_route_1.default);
     }
     connectToDatabase() {
         const URI = process.env.MONGO_URI;
