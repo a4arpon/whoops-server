@@ -24,4 +24,17 @@ export default class UserController {
       await handleErrors(err, res);
     }
   }
+  public async login(req: Request, res: Response): Promise<void> {
+    try {
+      const { email, password } = req.body;
+
+      await Promise.resolve().then(async () => {
+        const user = await UserModel.login(email, password);
+        const token = tokenManager.createToken(user._id);
+        res.status(200).json({ user, token });
+      });
+    } catch (err) {
+      handleErrors(err, res);
+    }
+  }
 }
