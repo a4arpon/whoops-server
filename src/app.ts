@@ -14,6 +14,7 @@ import resortsRouter from './routes/resort.route';
 import restaurantRouter from './routes/resturant.route';
 import spotRouter from './routes/spot.route';
 import tourPackageRouter from './routes/tourPackage.route';
+import userRouter from './routes/user.route';
 
 class App {
   private app: Application;
@@ -47,6 +48,7 @@ class App {
         message: 'Server is up and running, waiting for human to handle! 😎',
       });
     });
+    this.app.use('/api/user', userRouter);
     this.app.use('/api/locations', locationRouter);
     this.app.use('/api/locations/:id/resorts', resortsRouter);
     this.app.use('/api/locations/:id/restaurants', restaurantRouter);

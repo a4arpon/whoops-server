@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import mongoose, { model, Schema } from 'mongoose';
 import validator from 'validator';
+import { userModelInterface } from '../interfaces/user.interface';
 import { User } from '../types/user.type';
 export const userSchema = new Schema<User>(
   {
@@ -111,5 +112,5 @@ userSchema.statics.login = async function (email, password) {
   return existingUser;
 };
 
-const UserModel = model<User>('User', userSchema);
+const UserModel = model<User, userModelInterface>('User', userSchema);
 export default UserModel;
