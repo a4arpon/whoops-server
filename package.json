@@ -1,10 +1,10 @@
 {
   "name": "vista-safari-server",
   "version": "1.0.0",
-  "main": "dist/app.js",
+  "main": "./dist/app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node dist/app.js",
+    "start": "node ./dist/app.js",
     "dev": "nodemon src/app.ts",
     "build": "tsc",
     "lint:check": "eslint . --ext .js,.ts --config .eslintrc-config.js",
