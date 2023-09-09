@@ -36,7 +36,10 @@ export default class UserController {
       await Promise.resolve().then(async () => {
         const user = await UserModel.login(email, password);
         const token = tokenManager.createToken(user._id);
-        res.status(200).json({ id: user?._id, token });
+        res.status(200).json({
+          id: user?._id,
+          token,
+        });
       });
     } catch (err) {
       handleErrors(err, res);
@@ -63,6 +66,14 @@ export default class UserController {
         const user = await UserModel.findById(id);
         res.status(200).json(user);
       });
+    } catch (err) {
+      handleErrors(err, res);
+    }
+  }
+
+  public updateAnUser(req: Request, res: Response) {
+    try {
+      
     } catch (err) {
       handleErrors(err, res);
     }
