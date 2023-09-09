@@ -50,7 +50,7 @@ class App {
     });
     this.app.use('/api/user', userRouter);
     this.app.use('/api/locations', locationRouter);
-    this.app.use('/api/locations/:id/resorts', resortsRouter);
+    this.app.use('/api/locations', resortsRouter);
     this.app.use('/api/locations/:id/restaurants', restaurantRouter);
     this.app.use('/api/locations/:id/spots', spotRouter);
     this.app.use('/api/locations/:id/tour_packages', tourPackageRouter);
