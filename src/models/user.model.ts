@@ -72,9 +72,9 @@ userSchema.statics.register = async function (
     throw new Error('Email must be valid.');
   }
 
-  if (!validator.isStrongPassword(password)) {
-    throw new Error('Password must be strong. EX. Arpon69');
-  }
+  // if (!validator.isStrongPassword(password)) {
+  //   throw new Error('Password must be strong. EX. Arpon69');
+  // }
 
   const salt = await bcrypt.genSalt(10);
 

@@ -32,7 +32,6 @@ export default class AuthMiddleware {
     try {
       const payload = tokenManager.verifyToken(token) as JWTPayload;
       const user = await UserModel.findById(payload.id);
-
       if (!user) {
         res.status(401).json({ msg: 'Unauthorized' });
         return;
@@ -46,11 +45,7 @@ export default class AuthMiddleware {
     }
   }
 
-  public verifyAdmin(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): void {
+  public verifyAdmin(req: Request, res: Response, next: NextFunction): void {
     const user = req.user;
     if (user && user.role === 'admin') {
       next();

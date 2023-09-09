@@ -8,7 +8,8 @@ export default class jwtTokenManager {
   private readonly expiresIn: string;
 
   constructor() {
-    (this.secret = process.env.JWT_SECRET as string), (this.expiresIn = '7d');
+    this.secret = process.env.JWT_SECRET as string;
+    this.expiresIn = '7d';
   }
 
   public createToken(id: string): string {
@@ -23,8 +24,8 @@ export default class jwtTokenManager {
   }
   public verifyToken(token: string): JwtPayload | object | string {
     try {
-      const verifiedToken = Jwt.verify(token, this.secret)
-      return verifiedToken
+      const verifiedToken = Jwt.verify(token, this.secret);
+      return verifiedToken;
     } catch (err) {
       throw new Error('Error while generating token.');
     }

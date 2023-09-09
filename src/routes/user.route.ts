@@ -11,4 +11,6 @@ userRouter.post('/register', userInstance.register);
 
 userRouter.post('/login', userInstance.login);
 
+userRouter.get('/:id', authInstance.verifyUser, userInstance.getSingleUSer);
+
 export default userRouter;
