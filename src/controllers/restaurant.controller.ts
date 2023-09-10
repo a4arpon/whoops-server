@@ -2,12 +2,12 @@ import { Request, Response } from 'express';
 import mongoose from 'mongoose';
 import { handleErrors } from '../errors/handle.error';
 import locationModal from '../models/location.model';
-import spotModal from '../models/spot.model';
+import restaurantModal from '../models/resturant.model';
 
-export default class spotController {
+export default class RestaurantController {
   constructor() {}
 
-  public async allSpots(req: Request, res: Response): Promise<void> {
+  public async allRestaurants(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -16,7 +16,7 @@ export default class spotController {
       }
 
       await Promise.resolve().then(async () => {
-        const resorts = await spotModal.find({ location: id });
+        const resorts = await restaurantModal.find({ location: id });
         res.status(200).json(resorts);
       });
     } catch (err) {
@@ -24,7 +24,7 @@ export default class spotController {
     }
   }
 
-  public async singleSpot(req: Request, res: Response): Promise<void> {
+  public async singleRestaurant(req: Request, res: Response): Promise<void> {
     try {
       const { id, rid } = req.params;
 
@@ -39,7 +39,7 @@ export default class spotController {
       }
 
       await Promise.resolve().then(async () => {
-        const resort = await spotModal.findById(rid);
+        const resort = await restaurantModal.findById(rid);
         res.status(200).json(resort);
       });
     } catch (err) {
@@ -47,7 +47,7 @@ export default class spotController {
     }
   }
 
-  public async createSpot(req: Request, res: Response): Promise<void> {
+  public async createRestaurant(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
       const { name, photoUrl } = req.body;
@@ -57,7 +57,7 @@ export default class spotController {
       }
 
       await Promise.resolve().then(async () => {
-        const resort = await spotModal.create({
+        const resort = await restaurantModal.create({
           name,
           photoUrl,
           location: id,
@@ -76,7 +76,7 @@ export default class spotController {
     }
   }
 
-  public async updateSpot(req: Request, res: Response): Promise<void> {
+  public async updateRestaurant(req: Request, res: Response): Promise<void> {
     try {
       const { id, rid } = req.params;
       const { name, photoUrl } = req.body;
@@ -92,7 +92,7 @@ export default class spotController {
       }
 
       await Promise.resolve().then(async () => {
-        const resort = await spotModal.findByIdAndUpdate(
+        const resort = await restaurantModal.findByIdAndUpdate(
           rid,
           {
             name,
@@ -107,7 +107,7 @@ export default class spotController {
     }
   }
 
-  public async deleteSpot(req: Request, res: Response): Promise<void> {
+  public async deleteRestaurant(req: Request, res: Response): Promise<void> {
     try {
       const { id, rid } = req.params;
 
@@ -122,7 +122,7 @@ export default class spotController {
       }
 
       await Promise.resolve().then(async () => {
-        const resort = await spotModal.findByIdAndDelete(rid);
+        const resort = await restaurantModal.findByIdAndDelete(rid);
         res.status(200).json(resort);
       });
     } catch (err) {
