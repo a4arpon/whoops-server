@@ -1,9 +1,19 @@
 import express, { Router } from 'express';
+import LocationController from '../controllers/location.controller';
+import AuthMiddleware from '../middleware/auth.middleware';
 
 const locationRouter: Router = express.Router();
 
+const locationInstance = new LocationController();
+const authMiddleware = new AuthMiddleware();
+
 // add  a location
-locationRouter.post('/');
+locationRouter.post(
+  '/',
+  authMiddleware.verifyUser,
+  authMiddleware.verifyAdmin,
+  locationInstance.createLocation
+);
 
 // update a location
 locationRouter.put('/:id');
@@ -12,9 +22,9 @@ locationRouter.put('/:id');
 locationRouter.delete('/:id');
 
 // get all locations list
-locationRouter.get('/');
+locationRouter.get('/', locationInstance.allLocation);
 
 // get a single location
-locationRouter.get('/:id');
+locationRouter.get('/:id', locationInstance.singleLocation);
 
 export default locationRouter;

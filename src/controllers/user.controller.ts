@@ -52,7 +52,7 @@ export default class UserController {
       const userID = req.user?.id;
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({ msg: 'User not found.' });
+        res.status(404).json({ msg: 'Invalid Query' });
         return;
       }
 
@@ -78,7 +78,7 @@ export default class UserController {
       const { name, photoUrl, phone, address } = req.body;
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({ msg: 'user is not valid.' });
+        res.status(404).json({ msg: 'Invalid Query' });
         return;
       }
 
@@ -111,7 +111,7 @@ export default class UserController {
       const userID = req.user?.id;
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({ msg: 'user is not valid.' });
+        res.status(404).json({ msg: 'Invalid Query' });
         return;
       }
 
