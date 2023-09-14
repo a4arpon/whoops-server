@@ -2,14 +2,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express, { Application, Request, Response } from 'express';
 import mongoSanitize from 'express-mongo-sanitize';
-import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import mongoose from 'mongoose';
 import morgan from 'morgan';
 import bookingRouter from './routes/booking.route';
 import locationRouter from './routes/location.route';
-import paymentRouter from './routes/payment.route';
 import resortsRouter from './routes/resort.route';
 import restaurantRouter from './routes/resturant.route';
 import spotRouter from './routes/spot.route';
@@ -32,12 +30,12 @@ class App {
     this.app.use(cors());
     this.app.use(morgan('dev'));
     this.app.use(helmet());
-    this.app.use(
-      rateLimit({
-        windowMs: 10 * 60 * 1000,
-        max: 100,
-      })
-    );
+    // this.app.use(
+    //   rateLimit({
+    //     windowMs: 10 * 60 * 1000,
+    //     max: 100,
+    //   })
+    // );
     this.app.use(mongoSanitize());
     this.app.use(hpp());
   }
@@ -55,7 +53,6 @@ class App {
     this.app.use('/api/locations/:id/spots', spotRouter);
     this.app.use('/api/locations/:id/tour_packages', tourPackageRouter);
     this.app.use('/api/bookings', bookingRouter);
-    this.app.use('/api/payments', paymentRouter);
   }
 
   private connectToDatabase(): void {
