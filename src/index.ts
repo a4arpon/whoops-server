@@ -43,7 +43,7 @@ class App {
   private setupRoutes(): void {
     this.app.get('/', (req: Request, res: Response) => {
       res.status(200).json({
-        message: 'Server is up and running, waiting for human to handle! 😎',
+        message: 'Server is up and running and waiting for human to handle! 😎',
       });
     });
     this.app.use('/api/user', userRouter);
