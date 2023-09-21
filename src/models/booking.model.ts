@@ -19,6 +19,6 @@ const bookingSchema = new Schema<Booking>(
   { timestamps: true }
 );
 
-const locationModal = model<Booking>('Booking', bookingSchema);
+const bookingModel = model<Booking>('Booking', bookingSchema);
 
-export default locationModal;
+export default bookingModel;

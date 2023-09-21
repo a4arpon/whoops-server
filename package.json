@@ -4,9 +4,9 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev": "nodemon src/index.ts",
-    "build": "tsc",
+    "start": "node ./dist/app.js",
+    "dev": "nodemon src/app.ts",
+    "build": "rm -rf dist && tsc",
     "lint:check": "eslint . --ext .js,.ts --config .eslintrc-config.js",
     "lint:fix": "eslint . --ext .js,.ts --fix --config .eslintrc-config.js",
     "prettier:check": "prettier --check .",
@@ -25,6 +25,7 @@
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
+    "node-cron": "^3.0.2",
     "validator": "^13.11.0"
   },
   "devDependencies": {

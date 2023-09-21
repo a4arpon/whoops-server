@@ -42,7 +42,7 @@ export default class UserController {
         });
       });
     } catch (err) {
-      handleErrors(err, res);
+      await handleErrors(err, res);
     }
   }
 
@@ -52,7 +52,7 @@ export default class UserController {
       const userID = req.user?.id;
 
       if (!mongoose.Types.ObjectId.isValid(id)) {
-        res.status(404).json({ msg: 'User not found.' });
+        res.status(404).json({ msg: 'Invalid Query' });
         return;
       }
 
@@ -67,15 +67,76 @@ export default class UserController {
         res.status(200).json(user);
       });
     } catch (err) {
-      handleErrors(err, res);
+      await handleErrors(err, res);
     }
   }
 
-  public updateAnUser(req: Request, res: Response) {
+  public async updateAnUser(req: Request, res: Response): Promise<void> {
     try {
-      
+      const { id } = req.params;
+      const userID = req.user?.id;
+      const { name, photoUrl, phone, address } = req.body;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(404).json({ msg: 'Invalid Query' });
+        return;
+      }
+
+      if (!id == userID) {
+        res.status(404).json({ msg: 'Forbidden' });
+        return;
+      }
+
+      await Promise.resolve().then(async () => {
+        const user = await UserModel.findByIdAndUpdate(
+          id,
+          {
+            name,
+            photoUrl,
+            phone,
+            address,
+          },
+          { new: true }
+        );
+        res.status(200).json(user);
+      });
     } catch (err) {
-      handleErrors(err, res);
+      await handleErrors(err, res);
+    }
+  }
+
+  public async deleteUser(req: Request, res: Response): Promise<void> {
+    try {
+      const { id } = req.params;
+      const userID = req.user?.id;
+
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        res.status(404).json({ msg: 'Invalid Query' });
+        return;
+      }
+
+      if (!id == userID) {
+        res.status(404).json({ msg: 'Forbidden' });
+        return;
+      }
+
+      await Promise.resolve().then(async () => {
+        const user = await UserModel.findByIdAndDelete(id);
+        res.status(200).json(user);
+      });
+    } catch (err) {
+      await handleErrors(err, res);
+    }
+  }
+
+  public async getAllUsers(req: Request, res: Response): Promise<void> {
+    try {
+      await Promise.resolve().then(async () => {
+        const users = await UserModel.find({});
+        res.status(200).json(users);
+      });
+    } catch (err) {
+      await handleErrors(err, res);
     }
   }
 }
