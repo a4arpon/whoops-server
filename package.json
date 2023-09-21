@@ -4,8 +4,8 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index.js",
-    "dev": "nodemon src/index.ts",
+    "start": "node ./dist/app.js",
+    "dev": "nodemon src/app.ts",
     "build": "rm -rf dist && tsc",
     "lint:check": "eslint . --ext .js,.ts --config .eslintrc-config.js",
     "lint:fix": "eslint . --ext .js,.ts --fix --config .eslintrc-config.js",
