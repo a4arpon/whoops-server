@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "node run ./dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "rm -rf dist && tsc",
     "lint:check": "eslint . --ext .js,.ts --config .eslintrc-config.js",
@@ -25,6 +25,7 @@
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.5.0",
+    "node-cron": "^3.0.2",
     "validator": "^13.11.0"
   },
   "devDependencies": {
