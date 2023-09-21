@@ -4,7 +4,7 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node run ./dist/index.js",
+    "start": "node ./dist/index.js",
     "dev": "nodemon src/index.ts",
     "build": "rm -rf dist && tsc",
     "lint:check": "eslint . --ext .js,.ts --config .eslintrc-config.js",
